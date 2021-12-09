@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>external</Filter>
+    </ClCompile>
+    <ClCompile Include="..\packages\pugixml.1.11.0\build\native\include\pugixml.cpp">
+      <Filter>external</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Serialization.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Exceptions.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Events.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread_pool.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Samples_helper.h">
+      <Filter>Resourses\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resourses</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\iserializable.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializable_value.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\text.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\xml.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer_impl.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\event.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\thread.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{1415258d-f74d-4efc-b5dd-9f657a6dbaba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssh">
+      <UniqueIdentifier>{818f6b2f-df13-40d2-b844-fe6734370ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssh\serialization">
+      <UniqueIdentifier>{bc23ec6a-f763-4082-8ce2-b77415cf14ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resourses">
+      <UniqueIdentifier>{23e54479-193c-4d8f-98ff-49d15c487049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{88cde8da-3ba1-4fb2-9ab8-82a472ab24d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resourses\Samples">
+      <UniqueIdentifier>{61121f33-767f-4999-abc4-9a23cfd95dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resourses\Samples\Serialization">
+      <UniqueIdentifier>{4b1b5cde-a880-413d-acce-b30f7c21d3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{cd286f26-0866-4eeb-9cd7-7f2b4387bcee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssh\thread">
+      <UniqueIdentifier>{377cf7a8-e1d0-4adf-9074-7995b4f11cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{18880dbb-21aa-4302-b3b2-77a934bc73fa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Samples\Serialization\text_default.txt">
+      <Filter>Resourses\Samples\Serialization</Filter>
+    </Text>
+    <Text Include="Samples\Serialization\text_modification.txt">
+      <Filter>Resourses\Samples\Serialization</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Samples\Serialization\xml_modification.xml">
+      <Filter>Resourses\Samples\Serialization</Filter>
+    </Xml>
+    <Xml Include="Samples\Serialization\xml_default.xml">
+      <Filter>Resourses\Samples\Serialization</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ext_test.rc">
+      <Filter>Resourses</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>external</Filter>
+    </None>
+  </ItemGroup>
+</Project>

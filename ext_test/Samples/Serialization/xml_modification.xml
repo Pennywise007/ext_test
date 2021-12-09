@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<Collection Name="struct MyTestStruct">
+    <Collection Name="struct MyTestStruct">
+        <Collection Name="struct InternalStruct">
+            <Field Name="value" Value="0" Type="5" />
+            <Collection Name="valueList" />
+            <Field Name="testField" Value="true" Type="1" />
+        </Collection>
+        <Field Name="value" Value="0" Type="5" />
+        <Field Name="Name" Value="test" Type="0" />
+        <Collection Name="struct InternalStruct">
+            <Field Name="value" Value="123123123" Type="5" />
+            <Collection Name="valueList" />
+            <Field Name="testField" Value="true" Type="1" />
+        </Collection>
+        <Collection Name="valueMap">
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="0" Type="4" />
+                <Field Name="Value" Value="1" Type="5" />
+            </Collection>
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="1" Type="4" />
+                <Field Name="Value" Value="15245" Type="5" />
+            </Collection>
+        </Collection>
+        <Collection Name="valueMultimap" />
+        <Collection Name="valueList">
+            <Field Name="0" Value="23" Type="4" />
+            <Field Name="1" Value="1123" Type="4" />
+        </Collection>
+        <Collection Name="valueVector">
+            <Field Name="0" Value="0.4" Type="6" />
+            <Field Name="1" Value="20.5555" Type="6" />
+        </Collection>
+        <Collection Name="valueSet">
+            <Field Name="Value" Value="0.1" Type="6" />
+            <Field Name="Value" Value="2.2" Type="6" />
+            <Field Name="Value" Value="5.55" Type="6" />
+            <Field Name="Value" Value="5.6" Type="6" />
+        </Collection>
+        <Collection Name="valueMultiSet">
+            <Field Name="Value" Value="5" Type="4" />
+            <Field Name="Value" Value="10" Type="4" />
+        </Collection>
+        <Collection Name="serializableList">
+            <Field Name="Name" Value="test" Type="0" />
+            <Field Name="Name" Value="test" Type="0" />
+        </Collection>
+        <Collection Name="serializableVector">
+            <Field Name="Name" Value="test" Type="0" />
+        </Collection>
+        <Collection Name="internalStructsMap">
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="20" Type="4" />
+                <Collection Name="struct InternalStruct">
+                    <Field Name="value" Value="10" Type="5" />
+                    <Collection Name="valueList">
+                        <Field Name="0" Value="1" Type="4" />
+                        <Field Name="1" Value="2" Type="4" />
+                    </Collection>
+                    <Field Name="testField" Value="true" Type="1" />
+                </Collection>
+            </Collection>
+        </Collection>
+        <Collection Name="internalStructsMapShared" />
+        <Collection Name="internalStructsMultiMap">
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="30" Type="4" />
+                <Collection Name="struct InternalStruct">
+                    <Field Name="value" Value="30" Type="5" />
+                    <Collection Name="valueList">
+                        <Field Name="0" Value="10" Type="4" />
+                        <Field Name="1" Value="20" Type="4" />
+                    </Collection>
+                    <Field Name="testField" Value="true" Type="1" />
+                </Collection>
+            </Collection>
+        </Collection>
+        <Collection Name="internalStructsMultiMapShared" />
+        <Collection Name="internalStructsList" />
+        <Collection Name="internalStructsVector" />
+        <Collection Name="internalStructsSet" />
+        <Collection Name="internalStructsMultiSet" />
+        <Collection Name="strings">
+            <Field Name="0" Value="123" Type="0" />
+            <Field Name="1" Value="213" Type="0" />
+        </Collection>
+        <Field Name="My flag name" Value="false" Type="1" />
+        <Collection Name="flags name">
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="0" Type="4" />
+                <Field Name="Value" Value="1" Type="5" />
+            </Collection>
+            <Collection Name="Map pair">
+                <Field Name="Key" Value="1" Type="4" />
+                <Field Name="Value" Value="15245" Type="5" />
+            </Collection>
+        </Collection>
+    </Collection>
+</Collection>

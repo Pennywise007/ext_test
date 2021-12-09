@@ -1,0 +1,83 @@
+"struct MyTestStruct": {
+    "struct MyTestStruct": {
+        "struct InternalStruct": {
+            "value": 0,
+            "valueList": {
+            },
+            "testField": true
+        },
+        "value": 0,
+        "Name": "test",
+        "struct InternalStruct": {
+            "value": 0,
+            "valueList": {
+            },
+            "testField": true
+        },
+        "valueMap": {
+            "Map pair": {
+                "Key": 0,
+                "Value": 1
+            },
+            "Map pair": {
+                "Key": 1,
+                "Value": 15245
+            }
+        },
+        "valueMultimap": {
+        },
+        "valueList": {
+            "0": 23,
+            "1": 1123
+        },
+        "valueVector": {
+            "0": 0.4,
+            "1": 20.5555
+        },
+        "valueSet": {
+            "Value": 0.1,
+            "Value": 5.55
+        },
+        "valueMultiSet": {
+            "Value": 5,
+            "Value": 10
+        },
+        "serializableList": {
+            "Name": "test",
+            "Name": "test"
+        },
+        "serializableVector": {
+            "Name": "test"
+        },
+        "internalStructsMap": {
+        },
+        "internalStructsMapShared": {
+        },
+        "internalStructsMultiMap": {
+        },
+        "internalStructsMultiMapShared": {
+        },
+        "internalStructsList": {
+        },
+        "internalStructsVector": {
+        },
+        "internalStructsSet": {
+        },
+        "internalStructsMultiSet": {
+        },
+        "strings": {
+            "0": "TEST"
+        },
+        "My flag name": true,
+        "flags name": {
+            "Map pair": {
+                "Key": 0,
+                "Value": 1
+            },
+            "Map pair": {
+                "Key": 1,
+                "Value": 15245
+            }
+        }
+    }
+}
