@@ -34,9 +34,9 @@ struct InternalStruct : SerializableObject<InternalStruct>
 
 struct SerializableField : ISerializableField
 {
-    SSH_NODISCARD const wchar_t* GetName() const SSH_NOEXCEPT override { return L"Name"; }
-    SSH_NODISCARD SerializableValue SerializeValue() const override { return L"test"; }
-    void DeserializeValue(const SerializableValue& value) override { SSH_EXPECT(value == L"test"); }
+    EXT_NODISCARD const wchar_t* GetName() const EXT_NOEXCEPT override { return L"Name"; }
+    EXT_NODISCARD SerializableValue SerializeValue() const override { return L"test"; }
+    void DeserializeValue(const SerializableValue& value) override { EXT_EXPECT(value == L"test"); }
 };
 
 struct MyTestStruct : SerializableObject<MyTestStruct>, InternalStruct
