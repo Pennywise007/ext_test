@@ -1,9 +1,9 @@
 #include <pch.h>
 #include <vcruntime.h>
 
-#include <ssh/core/check.h>
-#include <ssh/trace/tracer.h>
-#include <ssh/error/exception.h>
+#include <ext/core/check.h>
+#include <ext/trace/tracer.h>
+#include <ext/error/exception.h>
 
 TEST(TestException, CheckNested)
 {
@@ -11,13 +11,13 @@ TEST(TestException, CheckNested)
     {
         try
         {
-            throw ssh::exception("Failed to do sth");
+            throw ext::exception("Failed to do sth");
         }
         catch (...)
         {
             try
             {
-                std::throw_with_nested(ssh::exception(ssh::source_location("File name", 11), "Job failed"));
+                std::throw_with_nested(ext::exception(ext::source_location("File name", 11), "Job failed"));
             }
             catch (...)
             {
@@ -30,6 +30,6 @@ TEST(TestException, CheckNested)
         EXPECT_STREQ("Main error catched.\n\n"
                      "Exception: Runtime error\n"
                      "Job failed Exception At 'File name'(11).\n"
-                     "Failed to do sth Exception", ssh::ManageExceptionText("Main error catched").c_str());
+                     "Failed to do sth Exception", ext::ManageExceptionText("Main error catched").c_str());
     }
 }

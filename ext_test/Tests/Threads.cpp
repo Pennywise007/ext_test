@@ -1,8 +1,8 @@
 #include <pch.h>
 
-#include <ssh/thread/event.h>
-#include <ssh/thread/thread.h>
-#include <ssh/thread/thread_pool.h>
+#include <ext/thread/event.h>
+#include <ext/thread/thread.h>
+#include <ext/thread/thread_pool.h>
 
 std::atomic_bool ThreadExecuted(false);
 std::atomic_bool ThreadInterrupted(false);
@@ -20,13 +20,13 @@ void thread_function(const std::function<void()>& function)
 
         ThreadExecuted = true;
     }
-    catch (const ssh::thread::thread_interrupted&)
+    catch (const ext::thread::thread_interrupted&)
     {
         ThreadInterrupted = true;
     }
 }
 
-void join_thread_and_check(ssh::thread& thread, bool interrupted)
+void join_thread_and_check(ext::thread& thread, bool interrupted)
 {
     thread.join();
     EXPECT_TRUE(ThreadRun);
@@ -50,11 +50,11 @@ void join_thread_and_check(ssh::thread& thread, bool interrupted)
 TEST(TestThreads, CheckInterruptionRequested)
 {
     {
-        ssh::Event threadStartedEvent;
+        ext::Event threadStartedEvent;
         threadStartedEvent.Create();
-        ssh::thread myThread(thread_function, [&threadStartedEvent]()
+        ext::thread myThread(thread_function, [&threadStartedEvent]()
         {
-            while (!ssh::this_thread::interruption_requested())
+            while (!ext::this_thread::interruption_requested())
             {
                 threadStartedEvent.Set();
                 std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -65,19 +65,19 @@ TEST(TestThreads, CheckInterruptionRequested)
         join_thread_and_check(myThread, false);
     }
     {
-        ssh::thread myThread(thread_function, []()
+        ext::thread myThread(thread_function, []()
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            EXPECT_FALSE(ssh::this_thread::interruption_requested());
+            EXPECT_FALSE(ext::this_thread::interruption_requested());
         });
         join_thread_and_check(myThread, false);
     }
 
     {
-        ssh::thread myThread(thread_function, []()
+        ext::thread myThread(thread_function, []()
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            EXPECT_TRUE(ssh::this_thread::interruption_requested());
+            EXPECT_TRUE(ext::this_thread::interruption_requested());
         });
         myThread.interrupt();
         join_thread_and_check(myThread, false);
@@ -87,19 +87,19 @@ TEST(TestThreads, CheckInterruptionRequested)
 TEST(TestThreads, CheckInteruptionPoint)
 {
     {
-        ssh::thread myThread(thread_function, []()
+        ext::thread myThread(thread_function, []()
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            ssh::this_thread::interruption_point();
+            ext::this_thread::interruption_point();
         });
         myThread.interrupt();
         join_thread_and_check(myThread, true);
     }
     {
-        ssh::thread myThread(thread_function, []()
+        ext::thread myThread(thread_function, []()
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            ssh::this_thread::interruption_point();
+            ext::this_thread::interruption_point();
         });
         join_thread_and_check(myThread, false);
     }
@@ -107,17 +107,17 @@ TEST(TestThreads, CheckInteruptionPoint)
 
 TEST(TestThreads, CheckDetaching)
 {
-    ssh::Event threadInterruptedAndDetached;
+    ext::Event threadInterruptedAndDetached;
     threadInterruptedAndDetached.Create();
     std::atomic_bool interrupted = false;
-    ssh::thread myThread([&threadInterruptedAndDetached, &interrupted]()
+    ext::thread myThread([&threadInterruptedAndDetached, &interrupted]()
     {
         EXPECT_TRUE(threadInterruptedAndDetached.Wait());
         try
         {
-            ssh::this_thread::interruption_point();
+            ext::this_thread::interruption_point();
         }
-        catch (const ssh::thread::thread_interrupted&)
+        catch (const ext::thread::thread_interrupted&)
         {
             interrupted = true;
         }
@@ -132,7 +132,7 @@ TEST(TestThreads, CheckDetaching)
 
 TEST(TestThreads, CheckOrdinarySleep)
 {
-    ssh::thread myThread(thread_function, []() { ssh::this_thread::sleep_for(std::chrono::seconds(3)); });
+    ext::thread myThread(thread_function, []() { ext::this_thread::sleep_for(std::chrono::seconds(3)); });
     std::this_thread::sleep_for(std::chrono::seconds(1));
     myThread.interrupt();
     join_thread_and_check(myThread, false);
@@ -140,9 +140,9 @@ TEST(TestThreads, CheckOrdinarySleep)
 
 TEST(TestThreads, CheckInterruptSleeping)
 {
-    ssh::Event threadStartedEvent;
+    ext::Event threadStartedEvent;
     threadStartedEvent.Create();
-    ssh::thread myThread(thread_function, [&]() { threadStartedEvent.Set(); ssh::this_thread::interruptible_sleep_for(std::chrono::seconds(10)); });
+    ext::thread myThread(thread_function, [&]() { threadStartedEvent.Set(); ext::this_thread::interruptible_sleep_for(std::chrono::seconds(10)); });
     EXPECT_TRUE(threadStartedEvent.Wait());
     std::this_thread::sleep_for(std::chrono::seconds(1));
     myThread.interrupt();
@@ -151,9 +151,9 @@ TEST(TestThreads, CheckInterruptSleeping)
 
 TEST(TestThreads, CheckRunAndInterruptibleSleep)
 {
-    ssh::thread myThread(thread_function, []() { ssh::this_thread::interruptible_sleep_for(std::chrono::seconds(1)); });
+    ext::thread myThread(thread_function, []() { ext::this_thread::interruptible_sleep_for(std::chrono::seconds(1)); });
     join_thread_and_check(myThread, false);
 
-    myThread.run(thread_function, []() { ssh::this_thread::interruptible_sleep_for(std::chrono::seconds(1)); });
+    myThread.run(thread_function, []() { ext::this_thread::interruptible_sleep_for(std::chrono::seconds(1)); });
     join_thread_and_check(myThread, false);
 }

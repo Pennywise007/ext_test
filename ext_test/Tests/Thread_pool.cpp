@@ -1,17 +1,17 @@
 #include <pch.h>
 
-#include <ssh/thread/event.h>
-#include <ssh/thread/thread.h>
-#include <ssh/thread/thread_pool.h>
+#include <ext/thread/event.h>
+#include <ext/thread/thread.h>
+#include <ext/thread/thread_pool.h>
 
 TEST(TestThreadPool, CheckAddAndExecutingTasks)
 {
     std::mutex listMutex;
-    std::set<ssh::task::TaskId, ssh::task::TaskIdComparer> taskList;
+    std::set<ext::task::TaskId, ext::task::TaskIdComparer> taskList;
 
     std::atomic_int runTaskCount = 0;
 
-    ssh::thread_pool threadPool([&taskList, &listMutex](const ssh::task::TaskId& taskId)
+    ext::thread_pool threadPool([&taskList, &listMutex](const ext::task::TaskId& taskId)
     {
         std::scoped_lock lock(listMutex);
         EXPECT_NE(taskList.find(taskId), taskList.end()) << "Unknown task id";
@@ -44,7 +44,7 @@ TEST(TestThreadPool, CheckRemovingTasks)
 {
     {
         std::atomic_uint executedTasksCount = 0;
-        ssh::thread_pool threadPool([&executedTasksCount](const ssh::task::TaskId& taskId)
+        ext::thread_pool threadPool([&executedTasksCount](const ext::task::TaskId& taskId)
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
             ++executedTasksCount;
@@ -62,7 +62,7 @@ TEST(TestThreadPool, CheckRemovingTasks)
     }
     {
         std::atomic_uint executedTasksCount = 0;
-        ssh::thread_pool threadPool([&executedTasksCount](const ssh::task::TaskId& taskId)
+        ext::thread_pool threadPool([&executedTasksCount](const ext::task::TaskId& taskId)
         {
             ++executedTasksCount;
         }, 1);

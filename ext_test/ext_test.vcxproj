@@ -33,32 +33,39 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\iserializable.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializable_value.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\text.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\xml.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer_impl.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\event.h" />
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\thread.h" />
+    <ClInclude Include="..\..\ext\core\check.h" />
+    <ClInclude Include="..\..\ext\core\defines.h" />
+    <ClInclude Include="..\..\ext\core\dispatcher.h" />
+    <ClInclude Include="..\..\ext\core\noncopyable.h" />
+    <ClInclude Include="..\..\ext\core\singleton.h" />
+    <ClInclude Include="..\..\ext\serialization\iserializable.h" />
+    <ClInclude Include="..\..\ext\serialization\serializable_value.h" />
+    <ClInclude Include="..\..\ext\serialization\serializer.h" />
+    <ClInclude Include="..\..\ext\serialization\serializers\text.h" />
+    <ClInclude Include="..\..\ext\serialization\serializers\xml.h" />
+    <ClInclude Include="..\..\ext\serialization\serializer_impl.h" />
+    <ClInclude Include="..\..\ext\thread\event.h" />
+    <ClInclude Include="..\..\ext\thread\thread.h" />
+    <ClInclude Include="..\..\ext\thread\thread_pool.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Samples_helper.h" />
+    <ClInclude Include="Samples\Samples_helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\packages\pugixml.1.11.0\build\native\include\pugixml.cpp" />
-    <ClCompile Include="Events.cpp" />
-    <ClCompile Include="Exceptions.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Serialization.cpp" />
-    <ClCompile Include="Threads.cpp" />
-    <ClCompile Include="Thread_pool.cpp" />
+    <ClCompile Include="Tests\COM.cpp" />
+    <ClCompile Include="Tests\Events.cpp" />
+    <ClCompile Include="Tests\Exceptions.cpp" />
+    <ClCompile Include="Tests\main.cpp" />
+    <ClCompile Include="Tests\Serialization.cpp" />
+    <ClCompile Include="Tests\Threads.cpp" />
+    <ClCompile Include="Tests\Thread_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

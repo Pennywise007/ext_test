@@ -3,15 +3,15 @@
 #include <set>
 #include <map>
 
-#include "Samples_helper.h"
+#include "Samples/Samples_helper.h"
 
 #define USE_PUGI_XML
-#include <ssh/serialization/iserializable.h>
+#include <ext/serialization/iserializable.h>
 
-#include <ssh/utils/filesystem.h>
+#include <ext/utils/filesystem.h>
 
-using namespace ssh::serializable;
-using namespace ssh::serializable::serializer;
+using namespace ext::serializable;
+using namespace ext::serializable::serializer;
 
 struct InternalStruct : SerializableObject<InternalStruct>
 {

@@ -7,64 +7,83 @@
     <ClCompile Include="..\packages\pugixml.1.11.0\build\native\include\pugixml.cpp">
       <Filter>external</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Exceptions.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Serialization.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Thread_pool.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Threads.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\Events.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc">
       <Filter>gtest</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc">
       <Filter>gtest</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Serialization.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Threads.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Exceptions.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Events.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Thread_pool.cpp">
+    <ClCompile Include="Tests\main.cpp" />
+    <ClCompile Include="Tests\COM.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Samples_helper.h">
-      <Filter>Resourses\Samples</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resourses</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>external</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\iserializable.h">
+    <ClInclude Include="..\..\ext\serialization\serializers\text.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializable_value.h">
+    <ClInclude Include="..\..\ext\serialization\serializers\xml.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer.h">
+    <ClInclude Include="..\..\ext\serialization\iserializable.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\text.h">
+    <ClInclude Include="..\..\ext\serialization\serializable_value.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializers\xml.h">
+    <ClInclude Include="..\..\ext\serialization\serializer.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\serialization\serializer_impl.h">
+    <ClInclude Include="..\..\ext\serialization\serializer_impl.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\event.h">
+    <ClInclude Include="..\..\ext\thread\event.h">
       <Filter>ssh\thread</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\UtilsProgrammerDir\myInclude\ssh\thread\thread.h">
+    <ClInclude Include="..\..\ext\thread\thread.h">
       <Filter>ssh\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\thread\thread_pool.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\core\check.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\core\defines.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\core\dispatcher.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\core\noncopyable.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ext\core\singleton.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Samples\Samples_helper.h">
+      <Filter>Resourses\Samples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +116,9 @@
     </Filter>
     <Filter Include="Tests">
       <UniqueIdentifier>{18880dbb-21aa-4302-b3b2-77a934bc73fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssh\core">
+      <UniqueIdentifier>{08c234ab-1190-4652-ac4b-ed3995dbd382}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

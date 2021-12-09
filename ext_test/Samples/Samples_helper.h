@@ -9,8 +9,8 @@
 #include <fstream>
 #include <string>
 
-#include <ssh/scope/on_exit.h>
-#include <ssh/utils/string.h>
+#include <ext/scope/on_exit.h>
+#include <ext/utils/string.h>
 
 namespace test::samples {
 
@@ -22,7 +22,7 @@ inline void compare_with_resource_file(const std::wstring& text, const UINT reso
     ASSERT_TRUE(hResource) << "Failed to load resource file " << resourceName;
     HGLOBAL hGlob = ::LoadResource(GetModuleHandle(NULL), hResource);
     ASSERT_TRUE(hGlob) << "Failed to load resource file " << resourceName;
-    ssh::scope::FreeObject resourceFree(hGlob, &::FreeResource);
+    ext::scope::FreeObject resourceFree(hGlob, &::FreeResource);
 
     // lock resource and get data size
     const LPVOID resourceLocker = ::LockResource(hGlob);
@@ -42,7 +42,7 @@ inline void compare_with_resource_file(const std::filesystem::path& pathToFile, 
     ASSERT_TRUE(hResource) << "Failed to load resource file " << resourceName;
     HGLOBAL hGlob = ::LoadResource(GetModuleHandle(NULL), hResource);
     ASSERT_TRUE(hGlob) << "Failed to load resource file " << resourceName;
-    ssh::scope::FreeObject resourceFree(hGlob, &::FreeResource);
+    ext::scope::FreeObject resourceFree(hGlob, &::FreeResource);
 
     // lock resource and get data size
     const LPVOID resourceLocker = ::LockResource(hGlob);

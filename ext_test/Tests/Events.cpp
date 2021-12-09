@@ -1,10 +1,10 @@
 #include <pch.h>
 
-#include <ssh/thread/event.h>
+#include <ext/thread/event.h>
 
 TEST(TestEvent, CheckRising)
 {
-    ssh::Event event;
+    ext::Event event;
     event.Create();
     EXPECT_TRUE(event);
     std::thread myThread([&event]()
@@ -31,7 +31,7 @@ TEST(TestEvent, CheckRising)
 
 TEST(TestEvent, CheckManualReset)
 {
-    ssh::Event event;
+    ext::Event event;
     std::thread myThread([&event]()
     {
         event.Create(false);
@@ -42,7 +42,7 @@ TEST(TestEvent, CheckManualReset)
 
 TEST(TestEvent, CheckWaitAfterSet)
 {
-    ssh::Event event;
+    ext::Event event;
     event.Create();
     event.Set();
 
