@@ -13,22 +13,63 @@
 using namespace ext::serializable;
 using namespace ext::serializable::serializer;
 
-struct InternalStruct : SerializableObject<InternalStruct>
+struct BaseTypes : SerializableObject<BaseTypes>
 {
-    DECLARE_SERIALIZABLE((long) value);
+    DECLARE_SERIALIZABLE((long) value, 0);
+    DECLARE_SERIALIZABLE((std::string) text);
+
+    DECLARE_SERIALIZABLE((std::map<int, long>) valueMap);
+    DECLARE_SERIALIZABLE((std::multimap<unsigned, long>) valueMultimap);
     DECLARE_SERIALIZABLE((std::list<int>) valueList);
+    DECLARE_SERIALIZABLE((std::vector<float>) valueVector);
+    DECLARE_SERIALIZABLE((std::set<double>) valueSet);
+    DECLARE_SERIALIZABLE((std::multiset<int>) valueMultiSet);
+
+    DECLARE_SERIALIZABLE((std::filesystem::path) path);
+
+    DECLARE_SERIALIZABLE((std::optional<bool>) optional);
+    DECLARE_SERIALIZABLE((std::optional<std::pair<int, bool>>) optionalPair);
+    DECLARE_SERIALIZABLE((std::vector<std::optional<bool>>) vectorOptional);
+    DECLARE_SERIALIZABLE((std::pair<int, bool>) pair);
+    DECLARE_SERIALIZABLE((std::list<std::pair<int, bool>>) listPair);
 
     bool testField;
-    InternalStruct()
+    BaseTypes()
         : testField(true)
     {
         REGISTER_SERIALIZABLE_OBJECT(testField);
     }
-    InternalStruct(long val, const std::list<int>& _list) : value(val), valueList(_list)
+    BaseTypes(long val, const std::list<int>& _list) : value(val), valueList(_list)
     {
         REGISTER_SERIALIZABLE_OBJECT(value);
         REGISTER_SERIALIZABLE_OBJECT(valueList);
         REGISTER_SERIALIZABLE_OBJECT(testField);
+    }
+    BaseTypes(bool /*SetValue*/)
+        : BaseTypes()
+    {
+        SetFieldValues();
+    }
+
+    virtual void SetFieldValues()
+    {
+        value = 213;
+        text = "text,\\s2\\\"\\d";
+
+        valueMap = { {0, 2} };
+        valueMultimap = { {0, 2} };
+        valueList = { {2}, {5} };
+        valueVector = { {2.4f}, {5.7f} };
+        valueSet = { {2.4}, {5.7} };
+        valueMultiSet = { {2}, {5} };
+
+        path = "C:\\Test";
+
+        optional = false;
+        optionalPair = { 453, true };
+        vectorOptional = { false, true };
+        pair = { 7, false };
+        listPair = { { 5, true }, { 88, false} };
     }
 };
 
@@ -39,98 +80,105 @@ struct SerializableField : ISerializableField
     void DeserializeValue(const SerializableValue& value) override { EXT_EXPECT(value == L"test"); }
 };
 
-struct MyTestStruct : SerializableObject<MyTestStruct>, InternalStruct
+struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, SerializableField
 {
-    REGISTER_SERIALIZABLE_BASE(InternalStruct);
+    REGISTER_SERIALIZABLE_BASE(BaseTypes, SerializableField);
 
-    DECLARE_SERIALIZABLE((long) value);
+    DECLARE_SERIALIZABLE((SerializableField) serializableObjectField);
 
-    DECLARE_SERIALIZABLE((SerializableField) field);
-    DECLARE_SERIALIZABLE((InternalStruct) internalStruct);
+    DECLARE_SERIALIZABLE((BaseTypes) baseTypesField);
+    DECLARE_SERIALIZABLE((std::list<BaseTypes>) serializableList);
 
-    DECLARE_SERIALIZABLE((std::map<int, long>) valueMap, {{0, 1},  {1, 15245}});
-    DECLARE_SERIALIZABLE((std::multimap<unsigned, long>) valueMultimap);
-    DECLARE_SERIALIZABLE((std::list<int>) valueList, { 23, 1123 });
-    DECLARE_SERIALIZABLE((std::vector<float>) valueVector, {0.4f, 20.5555f});
-    DECLARE_SERIALIZABLE((std::set<double>) valueSet, {0.1, 5.55});
-    DECLARE_SERIALIZABLE((std::multiset<int>) valueMultiSet, { 10, 5 });
+    DECLARE_SERIALIZABLE((std::shared_ptr<BaseTypes>) serializableSharedPtr);
+    DECLARE_SERIALIZABLE((std::unique_ptr<BaseTypes>) serializableUniquePtr);
+    DECLARE_SERIALIZABLE((std::vector<std::shared_ptr<BaseTypes>>) serializableUniquePtrList);
 
-    DECLARE_SERIALIZABLE((std::list<SerializableField>) serializableList, { SerializableField(), SerializableField()});
-    DECLARE_SERIALIZABLE((std::vector<SerializableField>) serializableVector, { SerializableField() });
+    DECLARE_SERIALIZABLE((std::map<int, std::shared_ptr<BaseTypes>>) serializableStructsMap);
+    DECLARE_SERIALIZABLE((std::map<std::shared_ptr<BaseTypes>, int>) serializableStructsMapShared);
+    DECLARE_SERIALIZABLE((std::multimap<int, std::shared_ptr<BaseTypes>>) serializableStructsMultiMap);
+    DECLARE_SERIALIZABLE((std::multimap<std::shared_ptr<BaseTypes>, unsigned>) serializableStructsMultiMapShared);
+    DECLARE_SERIALIZABLE((std::set<std::shared_ptr<BaseTypes>>) serializableStructsSet);
+    DECLARE_SERIALIZABLE((std::multiset<std::shared_ptr<BaseTypes>>) serializableStructsMultiSet);
 
-    DECLARE_SERIALIZABLE((std::map<int, std::shared_ptr<InternalStruct>>) internalStructsMap);
-    DECLARE_SERIALIZABLE((std::map<std::shared_ptr<InternalStruct>, int>) internalStructsMapShared);
-    DECLARE_SERIALIZABLE((std::multimap<int, std::shared_ptr<InternalStruct>>) internalStructsMultiMap);
-    DECLARE_SERIALIZABLE((std::multimap<std::shared_ptr<InternalStruct>, unsigned>) internalStructsMultiMapShared);
-    DECLARE_SERIALIZABLE((std::list<std::shared_ptr<InternalStruct>>) internalStructsList);
-    DECLARE_SERIALIZABLE((std::vector<std::shared_ptr<InternalStruct>>) internalStructsVector);
-    DECLARE_SERIALIZABLE((std::set<std::shared_ptr<InternalStruct>>) internalStructsSet);
-    DECLARE_SERIALIZABLE((std::multiset<std::shared_ptr<InternalStruct>>) internalStructsMultiSet);
+    DECLARE_SERIALIZABLE((std::vector<std::string>) strings);
+    DECLARE_SERIALIZABLE((std::list<std::wstring>) wstrings);
+    DECLARE_SERIALIZABLE_N(L"My flag name", (bool) oneFlag, true);
 
-    DECLARE_SERIALIZABLE((std::vector<std::wstring>) strings, { L"TEST" });
-    DECLARE_SERIALIZABLE_N((bool) oneFlag, L"My flag name", true);
-
-    std::map<int, long> flags2 = [this]() -> decltype(std::remove_pointer_t<decltype(this)>::flags2)
+    std::map<int, long> flags2 = [this]()
     {
-        SerializableObject<MyTestStruct>::RegisterField(this, &MyTestStruct::flags2, L"flags name");
-        return { { 0, 1 },  { 1, 15245 } };
+        SerializableObject<SerializableTypes>::RegisterField(L"flags name", &SerializableTypes::flags2);
+        return std::map<int, long>{};
     }();
+
+    void SetFieldValues() override
+    {
+        BaseTypes::SetFieldValues();
+        baseTypesField.SetFieldValues();
+
+        serializableList = { BaseTypes(true), BaseTypes(true) };
+
+        serializableSharedPtr = std::make_shared<BaseTypes>(true);
+        serializableUniquePtr = std::make_unique<BaseTypes>(true);
+        serializableUniquePtrList = { std::make_shared<BaseTypes>(true) };
+
+        serializableStructsMap = { {1,std::make_shared<BaseTypes>(true) }};
+        serializableStructsMapShared = { {std::make_shared<BaseTypes>(true), 534 }};
+        serializableStructsMultiMap = { {1,std::make_shared<BaseTypes>(true) }};
+        serializableStructsMultiMapShared = { {std::make_shared<BaseTypes>(true), 534 }};
+        serializableStructsSet = { {std::make_shared<BaseTypes>(true) }};
+        serializableStructsMultiSet = { {std::make_shared<BaseTypes>(true)}};
+
+        strings = { "123", "Тест1" };
+        wstrings = { L"123", L"Тест" };
+
+        oneFlag = false;
+        flags2 = { { 0, 1 },  { 1, 15245 } };
+    }
 };
-
-namespace {
-
-void modify_struct_settings(MyTestStruct& test)
-{
-    test.internalStruct.value = 123123123;
-    test.internalStructsMap.emplace(std::make_pair(20, new InternalStruct{ 10, {1, 2} }));
-    test.internalStructsMultiMap.emplace(std::make_pair(30, new InternalStruct(30, { 10, 20 })));
-    test.valueSet.emplace(2.2);
-    test.valueSet.emplace(5.6);
-    test.strings = { L"123", L"213" };
-    test.oneFlag = false;
-}
-
-} // namespace
 
 TEST(TestSerialization, SerializationText)
 {
-    MyTestStruct testStruct;
+    std::locale::global(std::locale(""));
+
+    SerializableTypes testStruct;
 
     std::wstring defaultText;
     Executor::SerializeObject(Fabric::TextSerializer(defaultText), testStruct);
     test::samples::compare_with_resource_file(defaultText, IDR_SERIALIZE_TEXT_DEFAULT, L"SERIALIZE_TEXT_DEFAULT");
 
-    modify_struct_settings(testStruct);
+    testStruct.SetFieldValues();
 
     std::wstring textAfterModification;
     Executor::SerializeObject(Fabric::TextSerializer(textAfterModification), testStruct);
     test::samples::compare_with_resource_file(textAfterModification, IDR_SERIALIZE_TEXT_MODIFY, L"SERIALIZE_TEXT_MODIFY");
 
-    MyTestStruct otherStruct;
+    SerializableTypes otherStruct;
     Executor::DeserializeObject(Fabric::TextDeserializer(textAfterModification), otherStruct);
 
     std::wstring textAfterDeserializationModifiedStruct;
     Executor::SerializeObject(Fabric::TextSerializer(textAfterDeserializationModifiedStruct), otherStruct);
-    test::samples::compare_with_resource_file(textAfterDeserializationModifiedStruct, IDR_SERIALIZE_TEXT_MODIFY, L"SERIALIZE_TEXT_MODIFY");
-
     EXPECT_STREQ(textAfterDeserializationModifiedStruct.c_str(), textAfterModification.c_str());
+
+    Executor::DeserializeObject(Fabric::TextDeserializer(defaultText), otherStruct);
+    std::wstring textAfterRestoringToDefaults;
+    Executor::SerializeObject(Fabric::TextSerializer(textAfterRestoringToDefaults), otherStruct);
+    EXPECT_STREQ(textAfterRestoringToDefaults.c_str(), defaultText.c_str());
 }
 
 TEST(TestSerialization, SerializationXML)
 {
     const auto testXmlFilePath = std::filesystem::get_exe_directory() / L"test.xml";
 
-    MyTestStruct testStruct;
+    SerializableTypes testStruct;
     Executor::SerializeObject(Fabric::XMLSerializer(testXmlFilePath), testStruct);
     test::samples::compare_with_resource_file(testXmlFilePath, IDR_SERIALIZE_XML_DEFAULT, L"SERIALIZE_XML_DEFAULT");
     std::filesystem::remove(testXmlFilePath);
-
-    modify_struct_settings(testStruct);
+    testStruct.SetFieldValues();
 
     Executor::SerializeObject(Fabric::XMLSerializer(testXmlFilePath), testStruct);
     test::samples::compare_with_resource_file(testXmlFilePath, IDR_SERIALIZE_XML_MODIFY, L"SERIALIZE_XML_MODIFY");
 
-    MyTestStruct otherStruct;
+    SerializableTypes otherStruct;
     Executor::DeserializeObject(Fabric::XMLDeserializer(testXmlFilePath), otherStruct);
     std::filesystem::remove(testXmlFilePath);
 

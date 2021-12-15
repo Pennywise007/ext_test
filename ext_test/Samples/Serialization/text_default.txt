@@ -1,83 +1,85 @@
-"struct MyTestStruct": {
-    "struct MyTestStruct": {
-        "struct InternalStruct": {
-            "value": 0,
-            "valueList": {
-            },
-            "testField": true
-        },
+"struct SerializableTypes": {
+    "struct BaseTypes": {
         "value": 0,
-        "Name": "test",
-        "struct InternalStruct": {
-            "value": 0,
-            "valueList": {
-            },
-            "testField": true
-        },
+        "text": "",
         "valueMap": {
-            "Map pair": {
-                "Key": 0,
-                "Value": 1
-            },
-            "Map pair": {
-                "Key": 1,
-                "Value": 15245
-            }
         },
         "valueMultimap": {
         },
         "valueList": {
-            "0": 23,
-            "1": 1123
         },
         "valueVector": {
-            "0": 0.4,
-            "1": 20.5555
         },
         "valueSet": {
-            "Value": 0.1,
-            "Value": 5.55
         },
         "valueMultiSet": {
-            "Value": 5,
-            "Value": 10
         },
-        "serializableList": {
-            "Name": "test",
-            "Name": "test"
+        "path": "\"\"",
+        "optional": null,
+        "optionalPair": null,
+        "vectorOptional": {
         },
-        "serializableVector": {
-            "Name": "test"
+        "pair": {
+            "First": 0,
+            "Second": false
         },
-        "internalStructsMap": {
+        "listPair": {
         },
-        "internalStructsMapShared": {
+        "testField": true
+    },
+    "Name": "test",
+    "serializableObjectField": "test",
+    "baseTypesField": {
+        "value": 0,
+        "text": "",
+        "valueMap": {
         },
-        "internalStructsMultiMap": {
+        "valueMultimap": {
         },
-        "internalStructsMultiMapShared": {
+        "valueList": {
         },
-        "internalStructsList": {
+        "valueVector": {
         },
-        "internalStructsVector": {
+        "valueSet": {
         },
-        "internalStructsSet": {
+        "valueMultiSet": {
         },
-        "internalStructsMultiSet": {
+        "path": "\"\"",
+        "optional": null,
+        "optionalPair": null,
+        "vectorOptional": {
         },
-        "strings": {
-            "0": "TEST"
+        "pair": {
+            "First": 0,
+            "Second": false
         },
-        "My flag name": true,
-        "flags name": {
-            "Map pair": {
-                "Key": 0,
-                "Value": 1
-            },
-            "Map pair": {
-                "Key": 1,
-                "Value": 15245
-            }
-        }
+        "listPair": {
+        },
+        "testField": true
+    },
+    "serializableList": {
+    },
+    "serializableSharedPtr": null,
+    "serializableUniquePtr": null,
+    "serializableUniquePtrList": {
+    },
+    "serializableStructsMap": {
+    },
+    "serializableStructsMapShared": {
+    },
+    "serializableStructsMultiMap": {
+    },
+    "serializableStructsMultiMapShared": {
+    },
+    "serializableStructsSet": {
+    },
+    "serializableStructsMultiSet": {
+    },
+    "strings": {
+    },
+    "wstrings": {
+    },
+    "My flag name": true,
+    "flags name": {
     }
 }

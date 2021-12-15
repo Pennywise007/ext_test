@@ -40,24 +40,6 @@
     <ClInclude Include="pch.h">
       <Filter>external</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\serializers\text.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\serializers\xml.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\iserializable.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\serializable_value.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\serializer.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\serialization\serializer_impl.h">
-      <Filter>ssh\serialization</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\ext\thread\event.h">
       <Filter>ssh\thread</Filter>
     </ClInclude>
@@ -84,6 +66,27 @@
     </ClInclude>
     <ClInclude Include="Samples\Samples_helper.h">
       <Filter>Resourses\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\iserializable.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializable_impl.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializable_value.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializer.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializers\text.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializers\xml.h">
+      <Filter>ssh\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\serialization\serializer_impl.h">
+      <Filter>ssh\serialization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

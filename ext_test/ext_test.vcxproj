@@ -38,15 +38,16 @@
     <ClInclude Include="..\..\ext\core\dispatcher.h" />
     <ClInclude Include="..\..\ext\core\noncopyable.h" />
     <ClInclude Include="..\..\ext\core\singleton.h" />
-    <ClInclude Include="..\..\ext\serialization\iserializable.h" />
-    <ClInclude Include="..\..\ext\serialization\serializable_value.h" />
-    <ClInclude Include="..\..\ext\serialization\serializer.h" />
-    <ClInclude Include="..\..\ext\serialization\serializers\text.h" />
-    <ClInclude Include="..\..\ext\serialization\serializers\xml.h" />
-    <ClInclude Include="..\..\ext\serialization\serializer_impl.h" />
     <ClInclude Include="..\..\ext\thread\event.h" />
     <ClInclude Include="..\..\ext\thread\thread.h" />
     <ClInclude Include="..\..\ext\thread\thread_pool.h" />
+    <ClInclude Include="ext\serialization\iserializable.h" />
+    <ClInclude Include="ext\serialization\serializable_impl.h" />
+    <ClInclude Include="ext\serialization\serializable_value.h" />
+    <ClInclude Include="ext\serialization\serializer.h" />
+    <ClInclude Include="ext\serialization\serializers\text.h" />
+    <ClInclude Include="ext\serialization\serializers\xml.h" />
+    <ClInclude Include="ext\serialization\serializer_impl.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Samples\Samples_helper.h" />
@@ -74,7 +75,9 @@
     <ResourceCompile Include="ext_test.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Samples\Serialization\text_default.txt" />
+    <Text Include="Samples\Serialization\text_default.txt">
+      <SubType>Designer</SubType>
+    </Text>
     <Text Include="Samples\Serialization\text_modification.txt" />
   </ItemGroup>
   <ItemGroup>
