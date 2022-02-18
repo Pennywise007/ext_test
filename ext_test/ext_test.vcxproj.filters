@@ -32,6 +32,12 @@
     <ClCompile Include="Tests\COM.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\Detail.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\DependencyInjection.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -39,15 +45,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>external</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\thread\event.h">
-      <Filter>ssh\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\thread\thread.h">
-      <Filter>ssh\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\thread\thread_pool.h">
-      <Filter>ssh\thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ext\core\check.h">
       <Filter>ssh\core</Filter>
@@ -88,6 +85,24 @@
     <ClInclude Include="ext\serialization\serializer_impl.h">
       <Filter>ssh\serialization</Filter>
     </ClInclude>
+    <ClInclude Include="ext\detail\constructor_traits.h">
+      <Filter>ssh\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\detail\type_traits.h">
+      <Filter>ssh\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\dependency_injection.h">
+      <Filter>ssh\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\thread\event.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\thread\thread.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\thread\thread_pool.h">
+      <Filter>ssh\thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="gtest">
@@ -122,6 +137,9 @@
     </Filter>
     <Filter Include="ssh\core">
       <UniqueIdentifier>{08c234ab-1190-4652-ac4b-ed3995dbd382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssh\detail">
+      <UniqueIdentifier>{dbce1850-dba4-4eae-9de0-77bd9cad3ae1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

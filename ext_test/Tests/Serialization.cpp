@@ -93,6 +93,8 @@ struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, Ser
     DECLARE_SERIALIZABLE((std::unique_ptr<BaseTypes>) serializableUniquePtr);
     DECLARE_SERIALIZABLE((std::vector<std::shared_ptr<BaseTypes>>) serializableUniquePtrList);
 
+    DECLARE_SERIALIZABLE((std::optional<BaseTypes>) serializableOptional);
+
     DECLARE_SERIALIZABLE((std::map<int, std::shared_ptr<BaseTypes>>) serializableStructsMap);
     DECLARE_SERIALIZABLE((std::map<std::shared_ptr<BaseTypes>, int>) serializableStructsMapShared);
     DECLARE_SERIALIZABLE((std::multimap<int, std::shared_ptr<BaseTypes>>) serializableStructsMultiMap);
@@ -120,6 +122,8 @@ struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, Ser
         serializableSharedPtr = std::make_shared<BaseTypes>(true);
         serializableUniquePtr = std::make_unique<BaseTypes>(true);
         serializableUniquePtrList = { std::make_shared<BaseTypes>(true) };
+
+        serializableOptional.emplace(BaseTypes(true));
 
         serializableStructsMap = { {1,std::make_shared<BaseTypes>(true) }};
         serializableStructsMapShared = { {std::make_shared<BaseTypes>(true), 534 }};
@@ -184,5 +188,11 @@ TEST(TestSerialization, SerializationXML)
 
     Executor::SerializeObject(Fabric::XMLSerializer(testXmlFilePath), otherStruct);
     test::samples::compare_with_resource_file(testXmlFilePath, IDR_SERIALIZE_XML_MODIFY, L"SERIALIZE_XML_MODIFY");
+
+    SerializableTypes defaultStruct;
+    Executor::SerializeObject(Fabric::XMLSerializer(testXmlFilePath), defaultStruct);
+    Executor::DeserializeObject(Fabric::XMLDeserializer(testXmlFilePath), otherStruct);
+    Executor::SerializeObject(Fabric::XMLSerializer(testXmlFilePath), otherStruct);
+    test::samples::compare_with_resource_file(testXmlFilePath, IDR_SERIALIZE_XML_DEFAULT, L"SERIALIZE_XML_DEFAULT");
     std::filesystem::remove(testXmlFilePath);
 }

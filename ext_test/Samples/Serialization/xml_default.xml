@@ -46,6 +46,7 @@
     <Field Name="serializableSharedPtr" Value="null" Type="0" />
     <Field Name="serializableUniquePtr" Value="null" Type="0" />
     <Collection Name="serializableUniquePtrList" />
+    <Field Name="serializableOptional" Value="null" Type="0" />
     <Collection Name="serializableStructsMap" />
     <Collection Name="serializableStructsMapShared" />
     <Collection Name="serializableStructsMultiMap" />
