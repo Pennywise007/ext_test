@@ -51,6 +51,7 @@
     <ClInclude Include="ext\thread\event.h" />
     <ClInclude Include="ext\thread\thread.h" />
     <ClInclude Include="ext\thread\thread_pool.h" />
+    <ClInclude Include="ext\utils\lazy_type.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Samples\Samples_helper.h" />
