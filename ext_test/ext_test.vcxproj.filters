@@ -85,12 +85,6 @@
     <ClInclude Include="ext\serialization\serializer_impl.h">
       <Filter>ext\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="ext\detail\constructor_traits.h">
-      <Filter>ext\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="ext\detail\type_traits.h">
-      <Filter>ext\detail</Filter>
-    </ClInclude>
     <ClInclude Include="ext\core\dependency_injection.h">
       <Filter>ext\core</Filter>
     </ClInclude>

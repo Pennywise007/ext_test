@@ -10,7 +10,7 @@
 #include <string>
 
 #include <ext/scope/on_exit.h>
-#include <ext/utils/string.h>
+#include <ext/std/string.h>
 
 namespace test::samples {
 

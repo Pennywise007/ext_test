@@ -39,8 +39,6 @@
     <ClInclude Include="..\..\ext\core\noncopyable.h" />
     <ClInclude Include="..\..\ext\core\singleton.h" />
     <ClInclude Include="ext\core\dependency_injection.h" />
-    <ClInclude Include="ext\detail\constructor_traits.h" />
-    <ClInclude Include="ext\detail\type_traits.h" />
     <ClInclude Include="ext\serialization\iserializable.h" />
     <ClInclude Include="ext\serialization\serializable_impl.h" />
     <ClInclude Include="ext\serialization\serializable_value.h" />
