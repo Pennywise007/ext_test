@@ -2,7 +2,6 @@
 
 #include <ext/thread/event.h>
 #include <ext/thread/thread.h>
-#include <ext/thread/thread_pool.h>
 
 std::atomic_bool ThreadExecuted(false);
 std::atomic_bool ThreadInterrupted(false);

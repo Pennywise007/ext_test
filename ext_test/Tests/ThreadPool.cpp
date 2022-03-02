@@ -1,7 +1,6 @@
 #include <pch.h>
 
 #include <ext/thread/event.h>
-#include <ext/thread/thread.h>
 #include <ext/thread/thread_pool.h>
 
 TEST(TestThreadPool, CheckAddAndExecutingTasks)

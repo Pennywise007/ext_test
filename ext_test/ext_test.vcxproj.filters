@@ -13,9 +13,6 @@
     <ClCompile Include="Tests\Serialization.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\Thread_pool.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\Threads.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -36,6 +33,12 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="Tests\DependencyInjection.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheduller.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\ThreadPool.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
