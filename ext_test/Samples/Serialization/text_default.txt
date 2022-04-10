@@ -28,6 +28,12 @@
         "testField": true
     },
     "Name": "test",
+    "sharedSerializableInterface": {
+        "flagTest": true
+    },
+    "uniqueSerializableInterface": {
+        "flagTest": true
+    },
     "serializableObjectField": "test",
     "baseTypesField": {
         "value": 0,

@@ -1,4 +1,6 @@
-#include "pch.h"
+﻿#include "pch.h"
+
+#include <ext/core.h>
 
 GTEST_API_ int main(int argc, char** argv)
 {
@@ -7,7 +9,7 @@ GTEST_API_ int main(int argc, char** argv)
     ::testing::InitGoogleMock(&argc, argv);
     ::testing::InitGoogleTest(&argc, argv);
 
-    setlocale(LC_ALL, "Russian");
+    ext::core::Init();
 
     return RUN_ALL_TESTS();
 }

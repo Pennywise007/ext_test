@@ -57,6 +57,12 @@
         "testField": true
     },
     "Name": "test",
+    "sharedSerializableInterface": {
+        "flagTest": false
+    },
+    "uniqueSerializableInterface": {
+        "flagTest": false
+    },
     "serializableObjectField": "test",
     "baseTypesField": {
         "value": 213,
@@ -843,7 +849,7 @@
         },
         "Map pair": {
             "Key": 1,
-            "Value": 15 245
+            "Value": 15245
         }
     }
 }

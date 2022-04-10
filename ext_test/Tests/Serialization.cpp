@@ -13,6 +13,21 @@
 using namespace ext::serializable;
 using namespace ext::serializable::serializer;
 
+struct ISerializableInterface : ISerializableCollection
+{
+    virtual void changeValue() = 0;
+};
+
+struct SerializableInterfaceImpl : SerializableObject<SerializableInterfaceImpl, nullptr, ISerializableInterface>
+{
+    void changeValue() override final
+    {
+        flagTest = false;
+    }
+
+    DECLARE_SERIALIZABLE((bool) flagTest, true);
+};
+
 struct BaseTypes : SerializableObject<BaseTypes>
 {
     DECLARE_SERIALIZABLE((long) value, 0);
@@ -84,6 +99,8 @@ struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, Ser
 {
     REGISTER_SERIALIZABLE_BASE(BaseTypes, SerializableField);
 
+    DECLARE_SERIALIZABLE((std::shared_ptr<ISerializableInterface>) sharedSerializableInterface, std::make_shared<SerializableInterfaceImpl>());
+    DECLARE_SERIALIZABLE((std::unique_ptr<ISerializableInterface>) uniqueSerializableInterface, std::make_unique<SerializableInterfaceImpl>());
     DECLARE_SERIALIZABLE((SerializableField) serializableObjectField);
 
     DECLARE_SERIALIZABLE((BaseTypes) baseTypesField);
@@ -115,6 +132,9 @@ struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, Ser
     void SetFieldValues() override
     {
         BaseTypes::SetFieldValues();
+        sharedSerializableInterface->changeValue();
+        uniqueSerializableInterface->changeValue();
+
         baseTypesField.SetFieldValues();
 
         serializableList = { BaseTypes(true), BaseTypes(true) };
@@ -142,8 +162,6 @@ struct SerializableTypes : SerializableObject<SerializableTypes>, BaseTypes, Ser
 
 TEST(TestSerialization, SerializationText)
 {
-    std::locale::global(std::locale(""));
-
     SerializableTypes testStruct;
 
     std::wstring defaultText;

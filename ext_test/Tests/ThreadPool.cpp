@@ -6,7 +6,7 @@
 TEST(TestThreadPool, CheckAddAndExecutingTasks)
 {
     std::mutex listMutex;
-    std::set<ext::task::TaskId, ext::task::TaskIdComparer> taskList;
+    std::set<ext::task::TaskId, ext::task::TaskIdHelper> taskList;
 
     std::atomic_int runTaskCount = 0;
 

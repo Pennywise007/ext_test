@@ -21,6 +21,12 @@
         <Field Name="testField" Value="true" Type="2" />
     </Collection>
     <Field Name="Name" Value="test" Type="1" />
+    <Collection Name="sharedSerializableInterface">
+        <Field Name="flagTest" Value="true" Type="2" />
+    </Collection>
+    <Collection Name="uniqueSerializableInterface">
+        <Field Name="flagTest" Value="true" Type="2" />
+    </Collection>
     <Field Name="serializableObjectField" Value="test" Type="1" />
     <Collection Name="baseTypesField">
         <Field Name="value" Value="0" Type="6" />

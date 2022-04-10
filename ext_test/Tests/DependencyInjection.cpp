@@ -54,7 +54,7 @@ struct CreatedObject2 : ext::ServiceProviderHolder
 
     std::shared_ptr<Interface2> GetRandomInterfaceOption2() const
     {
-        return ext::GetInterface<Interface2>(ServiceProviderHolder::m_serviceProvider);
+        return ::ext::GetInterface<Interface2>(ServiceProviderHolder::m_serviceProvider);
     }
 
     std::shared_ptr<Interface1> m_shared;
@@ -66,7 +66,7 @@ struct DependencyInjectionFixture : testing::Test
 {
     void SetUp() override
     {
-        m_serviceCollection.Clear();
+        m_serviceCollection.UnregisterAll();
     }
 
     ext::ServiceCollection& m_serviceCollection = ext::get_service<ext::ServiceCollection>();
@@ -155,12 +155,12 @@ TEST_F(DependencyInjectionFixture, Check_Singleton_MultipleInterfaceRegistration
 
 TEST_F(DependencyInjectionFixture, Check_Scoped)
 {
-    m_serviceCollection.RegisterScoped<Interface1Impl, Interface1>();
+    m_serviceCollection.RegisterScoped<Interface12Impl, Interface1, Interface2>();
     const auto serviceProviderScope1 = m_serviceCollection.BuildServiceProvider();
 
-    const std::shared_ptr<Interface1> interface1InScope1 = ext::GetInterface<Interface1>(serviceProviderScope1);
-    const std::shared_ptr<Interface1> interface2InScope1 = ext::GetInterface<Interface1>(serviceProviderScope1);
-    const std::shared_ptr<Interface1Impl> objectInScope1 = ext::CreateObject<Interface1Impl>(serviceProviderScope1);
+    const std::shared_ptr<Interface12Impl> interface1InScope1 = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface1>(serviceProviderScope1));
+    const std::shared_ptr<Interface12Impl> interface2InScope1 = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface2>(serviceProviderScope1));
+    const std::shared_ptr<Interface12Impl> objectInScope1 = ext::CreateObject<Interface12Impl>(serviceProviderScope1);
     EXPECT_NE(nullptr, interface1InScope1);
     EXPECT_NE(nullptr, interface2InScope1);
     EXPECT_NE(nullptr, objectInScope1);
@@ -169,19 +169,74 @@ TEST_F(DependencyInjectionFixture, Check_Scoped)
 
     auto checkScope = [&](const ext::ServiceProvider::Ptr& serviceProvider)
     {
-        const std::shared_ptr<Interface1> interface1InScope2 = ext::GetInterface<Interface1>(serviceProvider);
-        const std::shared_ptr<Interface1> interface2InScope2 = ext::GetInterface<Interface1>(serviceProvider);
-        const std::shared_ptr<Interface1Impl> objectInScope2 = ext::CreateObject<Interface1Impl>(serviceProvider);
+        const std::shared_ptr<Interface12Impl> interface1InScope2 = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface1>(serviceProvider));
+        const std::shared_ptr<Interface12Impl> interface2InScope2 = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface2>(serviceProvider));
+        const std::shared_ptr<Interface12Impl> objectInScope2 = ext::CreateObject<Interface12Impl>(serviceProvider);
         EXPECT_NE(nullptr, interface1InScope2);
         EXPECT_NE(nullptr, interface2InScope2);
         EXPECT_NE(nullptr, objectInScope2);
         EXPECT_EQ(interface1InScope2, interface2InScope2);
         EXPECT_NE(interface1InScope2, objectInScope2);
 
-        EXPECT_NE(interface1InScope1, interface2InScope2) << "Object should be different in defferent scopes";
+        EXPECT_NE(interface1InScope1, interface2InScope2) << "Object should be different in different scopes";
     };
     checkScope(m_serviceCollection.BuildServiceProvider());
     checkScope(serviceProviderScope1->CreateScope());
+
+    m_serviceCollection.RegisterSingleton<Interface12Impl, Interface1, Interface2>();
+    const auto serviceProviderSingleton = m_serviceCollection.BuildServiceProvider();
+    const std::shared_ptr<Interface12Impl> baseSingleton = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface1>(serviceProviderSingleton));
+    EXPECT_NE(nullptr, baseSingleton);
+
+    const std::shared_ptr<Interface12Impl> newServiceProviderSingleton = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface1>(m_serviceCollection.BuildServiceProvider()));
+    EXPECT_EQ(newServiceProviderSingleton, baseSingleton);
+    const std::shared_ptr<Interface12Impl> newScopeSingleton = std::dynamic_pointer_cast<Interface12Impl>(ext::GetInterface<Interface2>(serviceProviderSingleton->CreateScope()));
+    EXPECT_EQ(newScopeSingleton, baseSingleton);
+    const std::shared_ptr<Interface12Impl> objectInNewScope = ext::CreateObject<Interface12Impl>(serviceProviderSingleton->CreateScope());
+    EXPECT_NE(objectInNewScope, baseSingleton);
+}
+
+TEST_F(DependencyInjectionFixture, Check_Scoped_WithUnregistration)
+{
+    struct Interface3
+    {
+        virtual ~Interface3() = default;
+    };
+
+    struct Interface123Impl : Interface1, Interface2, Interface3
+    {
+    };
+
+    m_serviceCollection.RegisterScoped<Interface123Impl, Interface1, Interface2, Interface3>();
+    m_serviceCollection.Unregister<Interface1>();
+
+    const auto serviceProviderScope1 = m_serviceCollection.BuildServiceProvider();
+
+    const std::shared_ptr<Interface123Impl> interface1InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface2>(serviceProviderScope1));
+    const std::shared_ptr<Interface123Impl> interface2InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface3>(serviceProviderScope1));
+
+    EXPECT_NE(nullptr, interface1InScope1);
+    EXPECT_EQ(interface1InScope1, interface2InScope1);
+#pragma warning (push)
+#pragma warning (disable: 4834)
+    EXPECT_THROW(ext::GetInterface<Interface1>(serviceProviderScope1), ext::dependency_injection::not_registered);
+#pragma warning (pop)
+
+    {
+        const auto newServiceProvider = m_serviceCollection.BuildServiceProvider();
+        const std::shared_ptr<Interface123Impl> interface1InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface2>(newServiceProvider));
+        const std::shared_ptr<Interface123Impl> interface2InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface3>(newServiceProvider));
+        EXPECT_NE(nullptr, interface1InScope1);
+        EXPECT_EQ(interface1InScope1, interface2InScope1);
+    }
+
+    {
+        const auto newScope = serviceProviderScope1->CreateScope();
+        const std::shared_ptr<Interface123Impl> interface1InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface2>(newScope));
+        const std::shared_ptr<Interface123Impl> interface2InScope1 = std::dynamic_pointer_cast<Interface123Impl>(ext::GetInterface<Interface3>(newScope));
+        EXPECT_NE(nullptr, interface1InScope1);
+        EXPECT_EQ(interface1InScope1, interface2InScope1);
+    }
 }
 
 TEST_F(DependencyInjectionFixture, Check_Scoped_MultipleInterfaceRegistration)
@@ -312,4 +367,42 @@ TEST_F(DependencyInjectionFixture, LazyGetterTest)
     EXPECT_EQ(1, LazyObjectCounter);
     objectCounter->UseInterface();
     EXPECT_EQ(2, LazyObjectCounter);
+}
+
+TEST_F(DependencyInjectionFixture, CheckResettingObjects)
+{
+    struct TestObject
+    {
+        TestObject(ext::ServiceProvider::Ptr&& serviceProvider)
+            : m_serviceProvider(std::move(serviceProvider))
+        {
+            ++LazyObjectCounter;
+        }
+        ~TestObject()
+        {
+            --LazyObjectCounter;
+        }
+
+        ext::ServiceProvider::Ptr m_serviceProvider;
+    };
+
+    LazyObjectCounter = 0;
+    m_serviceCollection.RegisterScoped<TestObject, TestObject>();
+
+    auto serviceProvider = m_serviceCollection.BuildServiceProvider();
+    std::shared_ptr<TestObject> objectCounter = ext::GetInterface<TestObject>(serviceProvider);
+
+    EXPECT_EQ(1, LazyObjectCounter);
+    objectCounter = nullptr;
+    EXPECT_EQ(1, LazyObjectCounter);
+    serviceProvider->Reset();
+    EXPECT_EQ(0, LazyObjectCounter) << "After resetting scope object must be destroyed becaouse object refs = 0";
+
+    objectCounter = ext::GetInterface<TestObject>(serviceProvider);
+    EXPECT_EQ(1, LazyObjectCounter);
+    serviceProvider = nullptr;
+    objectCounter = nullptr;
+    EXPECT_EQ(1, LazyObjectCounter);
+    m_serviceCollection.ResetObjects();
+    EXPECT_EQ(0, LazyObjectCounter) << "After resetting collection all scopes must be destroyed becaouse object refs = 0";
 }

@@ -35,7 +35,7 @@
     <ClCompile Include="Tests\DependencyInjection.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Scheduller.cpp">
+    <ClCompile Include="Scheduler.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="Tests\ThreadPool.cpp">
@@ -48,21 +48,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>external</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\core\check.h">
-      <Filter>ext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\core\defines.h">
-      <Filter>ext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\core\dispatcher.h">
-      <Filter>ext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\core\noncopyable.h">
-      <Filter>ext\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ext\core\singleton.h">
-      <Filter>ext\core</Filter>
     </ClInclude>
     <ClInclude Include="Samples\Samples_helper.h">
       <Filter>Resourses\Samples</Filter>
@@ -88,9 +73,6 @@
     <ClInclude Include="ext\serialization\serializer_impl.h">
       <Filter>ext\serialization</Filter>
     </ClInclude>
-    <ClInclude Include="ext\core\dependency_injection.h">
-      <Filter>ext\core</Filter>
-    </ClInclude>
     <ClInclude Include="ext\thread\event.h">
       <Filter>ext\thread</Filter>
     </ClInclude>
@@ -101,6 +83,36 @@
       <Filter>ext\thread</Filter>
     </ClInclude>
     <ClInclude Include="ext\utils\lazy_type.h">
+      <Filter>ext\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\dependency_injection.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\dispatcher.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\mpl.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\noncopyable.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\singleton.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\check.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\COM.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\core\defines.h">
+      <Filter>ext\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\thread\scheduler.h">
+      <Filter>ext\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ext\utils\constructor_traits.h">
       <Filter>ext\utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,9 +149,6 @@
     </Filter>
     <Filter Include="ext\core">
       <UniqueIdentifier>{08c234ab-1190-4652-ac4b-ed3995dbd382}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ext\detail">
-      <UniqueIdentifier>{dbce1850-dba4-4eae-9de0-77bd9cad3ae1}</UniqueIdentifier>
     </Filter>
     <Filter Include="ext\utils">
       <UniqueIdentifier>{38aa836b-6757-4d0d-a2d7-b35a928b679f}</UniqueIdentifier>

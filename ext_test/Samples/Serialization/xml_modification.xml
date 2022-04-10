@@ -58,6 +58,12 @@
         <Field Name="testField" Value="true" Type="2" />
     </Collection>
     <Field Name="Name" Value="test" Type="1" />
+    <Collection Name="sharedSerializableInterface">
+        <Field Name="flagTest" Value="false" Type="2" />
+    </Collection>
+    <Collection Name="uniqueSerializableInterface">
+        <Field Name="flagTest" Value="false" Type="2" />
+    </Collection>
     <Field Name="serializableObjectField" Value="test" Type="1" />
     <Collection Name="baseTypesField">
         <Field Name="value" Value="213" Type="6" />
@@ -844,7 +850,7 @@
         </Collection>
         <Collection Name="Map pair">
             <Field Name="Key" Value="1" Type="5" />
-            <Field Name="Value" Value="15 245" Type="6" />
+            <Field Name="Value" Value="15245" Type="6" />
         </Collection>
     </Collection>
 </Collection>

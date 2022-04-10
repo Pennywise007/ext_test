@@ -28,7 +28,8 @@ inline void compare_with_resource_file(const std::wstring& text, const UINT reso
     const LPVOID resourceLocker = ::LockResource(hGlob);
     const DWORD dwResourceSize = ::SizeofResource(GetModuleHandle(NULL), hResource);
     ASSERT_TRUE(resourceLocker && dwResourceSize != 0) << "Failed to load resource file " << resourceName;
-    ASSERT_STREQ(std::narrow(text.c_str()).c_str(), (const char*)resourceLocker) << "Content unmatched for resource file " << resourceName;
+    std::string resourceString((const char*)resourceLocker, dwResourceSize);
+    ASSERT_STREQ(resourceString.c_str(), std::narrow(text.c_str()).c_str()) << "Content unmatched for resource file " << resourceName;
 }
 
 // compare file with resoursce
@@ -49,8 +50,6 @@ inline void compare_with_resource_file(const std::filesystem::path& pathToFile, 
     const DWORD dwResourceSize = ::SizeofResource(GetModuleHandle(NULL), hResource);
     ASSERT_TRUE(resourceLocker && dwResourceSize != 0) << "Failed to load resource file " << resourceName;
 
-    ASSERT_EQ(file.tellg(), dwResourceSize) << "File sizes unmatched " << pathToFile << " and resource " << resourceName;
-
     file.seekg(0, std::ifstream::beg);
 
     // load file content
@@ -59,7 +58,8 @@ inline void compare_with_resource_file(const std::filesystem::path& pathToFile, 
               std::istreambuf_iterator<char>(),
               std::insert_iterator<std::string>(fileText, fileText.begin()));
 
-    ASSERT_STREQ(fileText.c_str(), (const char*)resourceLocker) << "File content unmatched " << pathToFile << " and resource " << resourceName;
+    std::string resourceString((const char*)resourceLocker, dwResourceSize);
+    ASSERT_STREQ(resourceString.c_str(), fileText.c_str()) << "File content unmatched " << pathToFile << " and resource " << resourceName;
 }
 
 } // namespace test::samples
