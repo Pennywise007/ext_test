@@ -74,7 +74,7 @@ struct BaseTypes : SerializableObject<BaseTypes>
         valueMap = { {0, 2} };
         valueMultimap = { {0, 2} };
         valueList = { {2}, {5} };
-        valueVector = { {2.4f}, {5.7f} };
+        valueVector = { {2.4f}, {5.7f}, {NAN} };
         valueSet = { {2.4}, {5.7} };
         valueMultiSet = { {2}, {5} };
 
