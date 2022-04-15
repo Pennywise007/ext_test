@@ -57,5 +57,22 @@ TEST(TestSchedule, CheckSchedulingTasks)
     scheduler.RemoveTask(taskIdByPeriod);
     EXPECT_FALSE(scheduler.IsTaskExists(taskIdByPeriod));
     EXPECT_EQ(callCount, 3);
+}
 
+TEST(TestSchedule, CheckSchedulingTask_AtTimeExists)
+{
+    ext::Scheduler& scheduler = ext::Scheduler::GlobalInstance();
+
+    bool executed = false;
+    std::chrono::system_clock::time_point callTime = std::chrono::system_clock::now() + std::chrono::milliseconds(100);
+    ext::TaskId taskId;
+    taskId = scheduler.SubscribeTaskAtTime(
+        [&]()
+        {
+            EXPECT_FALSE(scheduler.IsTaskExists(taskId));
+            executed = true;
+        },
+        callTime);
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    EXPECT_TRUE(executed);
 }
